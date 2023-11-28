@@ -1,0 +1,16 @@
+#数据库地址
+#spring.datasource.url=jdbc:mysql://119.91.95.151:3306/jingyundc?useSSL=false&characterEncoding=utf-8&serverTimezone=UTC&allowMultiQueries=true&useAffectedRows=true
+  #数据库MySQL为5.x时，url为
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/zwds?useSSL=false&characterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+server:
+  port: 8086
+
+mybatis:
+  type-aliases-package: com.zwds.pojo
+  mapper-locations: classpath:mappers/*.xml
