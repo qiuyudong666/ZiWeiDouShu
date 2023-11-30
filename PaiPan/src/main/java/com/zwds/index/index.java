@@ -232,6 +232,13 @@ public class index {
 
     }
 
+    public Integer getHuoAndLing(String dz) {
+        Map<String, Integer> hashMap = new HashMap<>();
+        hashMap.put("火星", 0);
+        hashMap.put("铃星", 1);
+        return hashMap.get(dz);
+    }
+
     public Integer getWuXingChangShengIndex(String dz) {
 
         Map<String, Integer> hashMap = new HashMap<>();

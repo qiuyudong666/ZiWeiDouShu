@@ -1039,6 +1039,16 @@ public class PaiPanServiceImpl implements PaiPanService {
         return startMap;
     }
 
+    public Map<String, String> getLingAndHuo(String idx) {
+        int i=index.getDiZhiIndex(idx);
+        int i2=index.getSanHeIndex(idx);
+        String[][] arr=array.getHuoAndLing(i2);
+        Map<String, String> startMap = new HashMap<String, String>();
+        startMap.put("火星",arr[0][i]);
+        startMap.put("铃星",arr[1][i]);
+        return startMap;
+    }
+
 
 }
 

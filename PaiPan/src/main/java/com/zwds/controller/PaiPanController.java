@@ -184,6 +184,12 @@ public class PaiPanController {
         for (String key : map4.keySet()) {
             System.err.println(key+"-1-"+map4.get(key));
         }
+
+        Map<String, String> map5=paiPanService.getLingAndHuo("巳");
+
+        for (String key : map5.keySet()) {
+            System.err.println(key+"-1-"+map5.get(key));
+        }
         return Information;
     }
 }
