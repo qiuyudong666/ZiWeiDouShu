@@ -1,4 +1,6 @@
-package com.zwds.ServiceImpl;
+package com.zwds.service.ServiceImpl;
+
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import com.zwds.mapper.StarMapper;
 import com.zwds.pojo.Star;
@@ -8,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class StarServiceImpl implements StarService {
+public class StarServiceImpl extends ServiceImpl<StarMapper,Star> implements StarService {
 
     @Autowired
     private StarMapper starMapper;

@@ -4,8 +4,11 @@ import lombok.Data;
 
 @Data
 public class Star {
-private int id;
-private String name;
-private String description;
-
+    private String id;
+    private String name;
+    private String description;
+    private String level;
+    private String fendou;
+    private String wuxing;
+    private String hua;
 }

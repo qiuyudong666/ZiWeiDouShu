@@ -127,69 +127,189 @@ public class PaiPanController {
     public Information paipan(){
         Information Information=new Information();
 
-        //19971228
+        //个人信息19971228
         String year=util.jiSuan(Integer.parseInt ("1997"));
-        System.err.println("year"+year);
         String mouth="十一月";
+        String day="二八";
         String hour="巳";
+        String sex="男";
+        System.err.println("【个人信息】【"+year+mouth+day+hour+sex+"】");
 
+        //获取天干地支
+        String[] yearArr=year.split("-");
+        String TianGan=yearArr[0];
+        String DiZhi=yearArr[1];
+        System.err.println("【天干地支】【"+TianGan+DiZhi+"】");
+
+        //获取阴阳-男女
+        String YinYangNanNv=paiPanService.getYinYangIndex(TianGan,sex);
+        System.err.println("【阴阳-男女】【"+YinYangNanNv+"】");
+
+        //获取命宫身宫
         String Shen=paiPanService.getShenGongIndex(mouth,hour);
-        System.err.println("身宫"+Shen);
+        System.err.println("【身宫】【"+Shen+"】");
         String ming=paiPanService.getMingGongIndex(mouth,hour);
-        System.err.println("命宫"+ming);
+        System.err.println("【命宫】【"+ming+"】");
 
         Gong gong=new Gong();
         Star star=new Star();
-        Map<String,Gong> map=new HashMap<>();
 
+        //获取其他宫
+        Map<String,Gong> map=new HashMap<>();
         map.putAll(paiPanService.getYuGongIndex(ming));
         map.put(ming,new Gong());
-        System.err.println("余宫"+map);
-//        paiPanService.getGongGan(map,"丁");
+        for (String key : map.keySet()) {
+            System.err.println("【"+key+"】【"+map.get(key)+"】");
+        }
 
-        Information.setGong(paiPanService.getGongGan(map,"丁"));
-        String wxj=paiPanService.getWuXingJu("丁",ming);
+        //获取宫干
+        Information.setGong(paiPanService.getGongGan(map,TianGan));
+        for (String key : map.keySet()) {
+            System.err.println("【"+key+"】【"+map.get(key)+"】");
+        }
+
+        //获取五行局
+        String wxj=paiPanService.getWuXingJu(TianGan,ming);
         Information.setWuxingju(wxj);
-        System.err.println("五行局"+paiPanService.getWuXingJu("丁",ming));
-
-
+        System.err.println("【五行局】【"+wxj+"】");
 
         Map<String, String> startMap = new HashMap<String, String>();
 
-        String ziweiIndex=paiPanService.getZiWei(wxj,"二八");
+        //获取紫微所在宫
+        String ziweiIndex=paiPanService.getZiWei(wxj,day);
         startMap.put("紫微",ziweiIndex);
-
-        System.err.println("紫微星"+ziweiIndex);
+        System.err.println("【紫微所在宫位】【"+ziweiIndex+"】");
         String b=paiPanService.getStarBright(ziweiIndex,"紫微");
-        System.err.println("紫微星亮度"+b);
+
+
+        //获取其他主星所在宫位
         Map<String, String> map1=paiPanService.getZhuStarIndex(ziweiIndex);
         for (String key : map1.keySet()) {
-            System.err.println(key+"--"+map1.get(key));
+            System.err.print("【"+key+"-"+map1.get(key)+"】");
         }
+        System.err.println("----------------------------------【其他主星】");
 
-        Map<String, String> map2=paiPanService.getYueXing("十一月");
-
-        for (String key : map2.keySet()) {
-            System.err.println(key+"--"+map2.get(key));
-        }
-
-        Map<String, String> map3=paiPanService.getGanXing("丁");
-
-        for (String key : map3.keySet()) {
-            System.err.println(key+"--"+map3.get(key));
-        }
-
-        Map<String, String> map4=paiPanService.getZhiXingIndex("丑");
-
-        for (String key : map4.keySet()) {
-            System.err.println(key+"-1-"+map4.get(key));
-        }
-
-        Map<String, String> map5=paiPanService.getLingAndHuo("巳");
-
+        //获取时系诸星在宫位
+        Map<String, String> map5=paiPanService.getLingAndHuo(hour);
         for (String key : map5.keySet()) {
-            System.err.println(key+"-1-"+map5.get(key));
+            System.err.print("【"+key+"-"+map5.get(key)+"】");
         }
+        System.err.println("----------------------------------【时系】");
+        Map<String, String> map7=paiPanService.getShiXing(hour);
+        for (String key : map7.keySet()) {
+            System.err.print("【"+key+"-"+map7.get(key)+"】");
+        }
+        System.err.println("----------------------------------【时系】");
+
+        //获取月系诸星在宫位
+        Map<String, String> map2=paiPanService.getYueXing(mouth);
+        for (String key : map2.keySet()) {
+            System.err.print("【"+key+"-"+map2.get(key)+"】");
+        }
+        System.err.println("----------------------------------【月系】");
+
+        //获取干系诸星在宫位
+        Map<String, String> map8=paiPanService.getGanXingIndex(TianGan);
+        for (String key : map8.keySet()) {
+            System.err.print("【"+key+"-"+map8.get(key)+"】");
+        }
+        System.err.println("----------------------------------【干系】");
+
+        //获取支系诸星在宫位
+        Map<String, String> map4=paiPanService.getZhiXingIndex(DiZhi);
+        for (String key : map4.keySet()) {
+            System.err.print("【"+key+"-"+map4.get(key)+"】");
+        }
+        System.err.println("----------------------------------【支系】");
+
+        //获取十二长生在宫位
+        Map<String, String> map6=paiPanService.getChangSheng(TianGan,wxj,sex);
+        for (String key : map6.keySet()) {
+            System.err.print("【"+key+"-"+map6.get(key)+"】");
+        }
+        System.err.println("----------------------------------【十二长生】");
+
+        //获取将前在宫位
+        Map<String, String> map9=paiPanService.getJiangQian(DiZhi);
+        for (String key : map9.keySet()) {
+            System.err.print("【"+key+"-"+map9.get(key)+"】");
+        }
+        System.err.println("----------------------------------【将前】");
+
+        //获取岁前在宫位
+        Map<String, String> map10=paiPanService.getSuiQian(DiZhi);
+        for (String key : map10.keySet()) {
+            System.err.print("【"+key+"-"+map10.get(key)+"】");
+        }
+        System.err.println("----------------------------------【岁前】");
+
+        //获取大限在宫位
+        Map<String, String> map11=paiPanService.getDaXian(wxj,YinYangNanNv);
+        for (String key : map11.keySet()) {
+            System.err.print("【"+key+"-"+map11.get(key)+"】");
+        }
+        System.err.println("----------------------------------【大限】");
+
+        //获取小限在宫位
+        Map<String, String> map12=paiPanService.getXiaoXian(DiZhi,sex);
+        for (String key : map12.keySet()) {
+            System.err.print("【"+key+"-"+map12.get(key)+"】");
+        }
+        System.err.println("----------------------------------【小限】");
+
+        //获取斗君在宫位
+        String douJun=paiPanService.getDouJun(mouth,hour);
+        System.err.println("【斗君】【"+douJun+"】");
+
+        //获取命主在宫位
+        String MingZhu=paiPanService.getMingZhuIndex(ming);
+        System.err.println("【命主】【"+MingZhu+"】");
+
+        //获取身主
+        String ShenZhu=paiPanService.getShenZhuIndex(DiZhi);
+        System.err.println("【身主】【"+ShenZhu+"】");
+
+        //获取旬空所在宫位
+        Map<String, String> map13=paiPanService.getXunKong(TianGan,DiZhi);
+        for (String key : map13.keySet()) {
+            System.err.print("【"+key+"-"+map13.get(key)+"】");
+        }
+        System.err.println("----------------------------------【旬空】");
+
+        //获取截空所在宫位
+        Map<String, String> map14=paiPanService.getJieKong(TianGan);
+        for (String key : map14.keySet()) {
+            System.err.print("【"+key+"-"+map14.get(key)+"】");
+        }
+        System.err.println("----------------------------------【截空】");
+
+        //获取三台所在宫位
+        String map15=paiPanService.getSanTai(map2.get("左辅"),day);
+        System.err.println("【三台】【"+map15+"】");
+
+        //获取八座所在宫位
+        String map16=paiPanService.getBaZuo(map2.get("右弼"),day);
+        System.err.println("【八座】【"+map16+"】");
+
+        //获取八座所在宫位
+        String map17=paiPanService.getChangQu(map7.get("文昌"),day);
+        System.err.println("【恩光】【"+map17+"】");
+
+        //获取天贵所在宫位
+        String map18=paiPanService.getChangQu(map7.get("文曲"),day);
+        System.err.println("【天贵】【"+map18+"】");
+
+        //获取博士十二星所在宫位
+        Map<String, String> map19=paiPanService.getBoShi(map8.get("禄存"),YinYangNanNv);
+        for (String key : map19.keySet()) {
+            System.err.print("【"+key+"-"+map19.get(key)+"】");
+        }
+        System.err.println("----------------------------------【博士十二星】");
+
+        //获取天贵所在宫位
+        String map20=paiPanService.getTianShou(Shen,DiZhi);
+        System.err.println("【天寿】【"+map20+"】");
+
         return Information;
     }
 }

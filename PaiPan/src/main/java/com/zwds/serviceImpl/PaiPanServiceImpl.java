@@ -1008,6 +1008,15 @@ public class PaiPanServiceImpl implements PaiPanService {
         return startMap;
     }
 
+    public Map<String, String> getShiXing(String idx) {
+        int i=index.getDiZhiIndex(idx);
+        Map<String, String> startMap = new HashMap<String, String>();
+        Map<String, Integer> map=index.getShiXingIndex();
+        for (String key : map.keySet()) {
+            startMap.put(key,array.getShiXing(map.get(key),i));
+        }
+        return startMap;
+    }
 
     public Map<String, String> getYueXing(String idx) {
         int i=index.getYueIndex(idx);
@@ -1039,6 +1048,16 @@ public class PaiPanServiceImpl implements PaiPanService {
         return startMap;
     }
 
+    public Map<String, String> getGanXingIndex(String idx) {
+        int i=index.getTianGanIndex(idx);
+        Map<String, String> startMap = new HashMap<String, String>();
+        Map<String, Integer> map=index.getGanXingIndex();
+        for (String key : map.keySet()) {
+            startMap.put(key,array.getGanXing(map.get(key),i));
+        }
+        return startMap;
+    }
+
     public Map<String, String> getLingAndHuo(String idx) {
         int i=index.getDiZhiIndex(idx);
         int i2=index.getSanHeIndex(idx);
@@ -1048,6 +1067,180 @@ public class PaiPanServiceImpl implements PaiPanService {
         startMap.put("铃星",arr[1][i]);
         return startMap;
     }
+
+    public String getMingZhu(String idx) {
+        return index.getMingZhuIndex(idx);
+    }
+
+    public String getShenZhu(String idx) {
+        return index.getShenZhuIndex(idx);
+    }
+
+    public Map<String, String> getChangSheng(String idx,String wxj,String sex) {
+        int i=index.getSexofYinYang(index.getYinYang(idx)+sex);
+        int wxjindex=index.getWuXingJuIndex(wxj);
+        Map<String, String> startMap = new HashMap<String, String>();
+        Map<String, Integer> map=index.getWuXingChangShengIndex();
+        for (String key : map.keySet()) {
+            startMap.put(key,array.getChangSheng(map.get(key),wxjindex,i));
+        }
+        return startMap;
+    }
+
+    public Map<String, String> getJiangQian(String dz) {
+        int i=index.getSanHeIndex(dz);
+        Map<String, String> startMap = new HashMap<String, String>();
+        Map<String, Integer> map=index.getJiangQianIndex();
+        for (String key : map.keySet()) {
+            startMap.put(key,array.getJiangQian(map.get(key),i));
+        }
+        return startMap;
+    }
+
+    public Map<String, String> getSuiQian(String dz) {
+        int i=index.getDiZhiIndex(dz);
+        Map<String, String> startMap = new HashMap<String, String>();
+        Map<String, Integer> map=index.getSuiQianIndex();
+        for (String key : map.keySet()) {
+            startMap.put(key,array.getSuiQian(map.get(key),i));
+        }
+        return startMap;
+    }
+
+    public Map<String, String> getDaXian(String dz,String or) {
+        int i=index.getWuXingJuIndex(dz);
+        int t=index.getSexofYinYang(or);
+        Map<String, String> startMap = new HashMap<String, String>();
+        Map<String, Integer> map=index.getDaXianIndex();
+        for (String key : map.keySet()) {
+            startMap.put(key,array.getDaXian(map.get(key),i,t));
+        }
+        return startMap;
+    }
+
+    public Map<String, String> getXiaoXian(String dz,String or) {
+        int i=index.getSanHeIndex(dz);
+        int t=index.getSex(or);
+        Map<String, String> startMap = new HashMap<String, String>();
+        Map<String, Integer> map=index.getXiaoXianIndex();
+        for (String key : map.keySet()) {
+            startMap.put(key,array.getXiaoXian(map.get(key),i,t));
+        }
+        return startMap;
+    }
+
+    public String getDouJun(String month,String hour) {
+        int i=index.getDiZhiIndex(hour);
+        int t =index.getYueIndex(month);
+        return array.getDouJun(t,i);
+    }
+
+    public String getMingZhuIndex(String nz) {
+        return index.getMingZhuIndex(nz);
+    }
+
+    public String getShenZhuIndex(String nz) {
+        return index.getShenZhuIndex(nz);
+    }
+
+    public Map<String, String> getXunKong(String nz,String dz) {
+        int t=index.getTianGanIndex(nz);
+        String[] i=array.getXunKong(t,dz);
+        Map<String, String> startMap = new HashMap<String, String>();
+        startMap.put(i[10],"旬空");
+        startMap.put(i[11],"旬空");
+        return startMap;
+    }
+
+    public Map<String, String> getJieKong(String tg) {
+        int i=index.getTianGanIndexWXJ(tg);
+        return array.getJieKong(i);
+    }
+
+
+    public String getSanTai(String tg,String day) {
+        int i=index.getDiZhiIndex(tg);
+        int t=index.getDayIndex(day);
+        String[] arr=array.getSanTaiBaZuoIndex(i);
+        int o=t%12+1;
+        return arr[o];
+    }
+
+    public String getBaZuo(String tg,String day) {
+        int i=index.getDiZhiIndex(tg);
+        int t=index.getDayIndex(day);
+        String[] arr=array.getSanTaiBaZuoIndex(i);
+        int o=12-t%12-1;
+        return arr[o];
+    }
+
+    public String getChangQu(String tg,String day) {
+        int i=index.getDiZhiIndex(tg);
+        int t=index.getDayIndex(day);
+        String[] arr=array.getSanTaiBaZuoIndex(i);
+        int o=t%12;
+        return arr[o];
+    }
+
+    public Map<String, String> getBoShi(String tg,String sex) {
+        int or=index.getSexofYinYang(sex);
+        int i=index.getDiZhiIndex(tg);
+        String[] arr=array.getBoShi(i,or);
+        Map<String, String> startMap = new HashMap<String, String>();
+        Map<String, Integer> map=index.getBoShiIndex();
+        int n=0;
+        for (String key : map.keySet()) {
+            startMap.put(key,arr[n]);
+            n++;
+        }
+        return startMap;
+    }
+
+
+    public String getTianShou(String tg,String dz) {
+        int i=index.getDiZhiIndex(tg);
+        int t=index.getDiZhiIndex(dz);
+        String[] arr=array.getSanTaiBaZuoIndex(i);
+        return arr[t];
+    }
+
+//    public String getChangSheng(int ii, int or) {
+//        String[][] arr1 = {
+//                {"申","亥","巳","申","寅"},
+//                {"酉","子","午","酉","卯"},
+//                {"戌","丑","未","戌","辰"},
+//                {"亥","寅","申","亥","巳"},
+//                {"子","卯","酉","子","午"},
+//                {"丑","辰","戌","丑","未"},
+//                {"寅","巳","亥","寅","申"},
+//                {"卯","午","子","卯","酉"},
+//                {"辰","未","丑","辰","戌"},
+//                {"巳","申","寅","巳","亥"},
+//                {"午","酉","卯","午","子"},
+//                {"未","戌","辰","未","丑"}
+//        };
+//        String[][] arr2 = {
+//                {"申","亥","巳","申","寅"},
+//                {"未","戌","辰","未","辰"},
+//                {"午","酉","卯","午","巳"},
+//                {"巳","申","寅","巳","午"},
+//                {"辰","未","丑","辰","未"},
+//                {"卯","午","子","卯","申"},
+//                {"寅","巳","亥","寅","酉"},
+//                {"丑","辰","戌","丑","戌"},
+//                {"子","卯","酉","子","亥"},
+//                {"亥","寅","申","亥","子"},
+//                {"戌","丑","未","戌","丑"},
+//                {"酉","子","午","酉","卯"}
+//        };
+//        String[][] arr;
+//        if(or==0){
+//            arr=arr1;
+//        }else{
+//            arr=arr2;
+//        }
+//        return arr[ii][or];
+//    }
 
 
 }

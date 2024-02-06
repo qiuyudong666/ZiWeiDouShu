@@ -11,6 +11,8 @@ spring:
 server:
   port: 8086
 
-mybatis:
-  type-aliases-package: com.zwds.pojo
-  mapper-locations: classpath:mappers/*.xml
+mybatis-plus:
+  mapper-locations: classpath*:com/zwds/**/*.xml
+
+
+

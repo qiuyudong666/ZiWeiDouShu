@@ -3,10 +3,27 @@ package com.zwds.index;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 @Service
 public class index {
 
+    public String getYinYang(String tg) {
+
+        Map<String, String> hashMap = new HashMap<>();
+        hashMap.put("甲", "阳");
+        hashMap.put("乙", "阴");
+        hashMap.put("丙", "阳");
+        hashMap.put("丁", "阴");
+        hashMap.put("戊", "阳");
+        hashMap.put("己", "阴");
+        hashMap.put("庚", "阳");
+        hashMap.put("辛", "阴");
+        hashMap.put("壬", "阳");
+        hashMap.put("癸", "阴");
+        return hashMap.get(tg);
+
+    }
     public Integer getTianGanIndex(String tg) {
 
         Map<String, Integer> hashMap = new HashMap<>();
@@ -40,6 +57,8 @@ public class index {
         return hashMap.get(tg);
 
     }
+
+
 
     public Integer getDiZhiIndex(String dz) {
 
@@ -209,6 +228,16 @@ public class index {
         return hashMap.get(dz);
 
     }
+
+    public Integer getSex(String dz) {
+
+        Map<String, Integer> hashMap = new HashMap<>();
+        hashMap.put("男", 0);
+        hashMap.put("女", 1);
+
+        return hashMap.get(dz);
+
+    }
     public Integer getSanHeIndex(String dz) {
 
         Map<String, Integer> hashMap = new HashMap<>();
@@ -239,7 +268,7 @@ public class index {
         return hashMap.get(dz);
     }
 
-    public Integer getWuXingChangShengIndex(String dz) {
+    public Map<String, Integer> getWuXingChangShengIndex() {
 
         Map<String, Integer> hashMap = new HashMap<>();
         hashMap.put("长生", 0);
@@ -255,7 +284,7 @@ public class index {
         hashMap.put("胎", 10);
         hashMap.put("养", 11);
 
-        return hashMap.get(dz);
+        return hashMap;
 
     }
 
@@ -282,7 +311,7 @@ public class index {
 
     }
 
-    public Integer getGanXingIndex(String dz) {
+    public Map<String, Integer>  getGanXingIndex() {
 
         Map<String, Integer> hashMap = new HashMap<>();
 
@@ -295,7 +324,22 @@ public class index {
         hashMap.put("天福", 6);
         hashMap.put("天厨", 7);
 
-        return hashMap.get(dz);
+        return hashMap;
+
+    }
+
+    public Map<String, Integer> getShiXingIndex() {
+
+        Map<String, Integer> hashMap = new HashMap<>();
+
+        hashMap.put("文昌", 0);
+        hashMap.put("文曲", 1);
+        hashMap.put("地劫", 2);
+        hashMap.put("地空", 3);
+        hashMap.put("台辅", 4);
+        hashMap.put("封皓", 5);
+
+        return hashMap;
 
     }
 
@@ -315,7 +359,7 @@ public class index {
 
     }
 
-    public Integer getJiangQianIndex(String dz) {
+    public Map<String, Integer> getJiangQianIndex() {
 
         Map<String, Integer> hashMap = new HashMap<>();
         hashMap.put("将星", 0);
@@ -331,11 +375,11 @@ public class index {
         hashMap.put("月煞", 10);
         hashMap.put("亡神", 11);
 
-        return hashMap.get(dz);
+        return hashMap;
 
     }
 
-    public Integer getSuiQianIndex(String dz) {
+    public Map<String, Integer> getSuiQianIndex() {
 
         Map<String, Integer> hashMap = new HashMap<>();
         hashMap.put("岁建", 0);
@@ -351,13 +395,13 @@ public class index {
         hashMap.put("吊客", 10);
         hashMap.put("病符", 11);
 
-        return hashMap.get(dz);
+        return hashMap;
 
     }
 
-    public Integer getBoShiIndex(String dz) {
+    public Map<String, Integer> getBoShiIndex() {
 
-        Map<String, Integer> hashMap = new HashMap<>();
+        Map<String, Integer> hashMap = new LinkedHashMap<>();
         hashMap.put("博士", 0);
         hashMap.put("力士", 1);
         hashMap.put("青龙", 2);
@@ -371,8 +415,111 @@ public class index {
         hashMap.put("伏兵", 10);
         hashMap.put("官符", 11);
 
+        return hashMap;
+
+    }
+
+    public String getMingZhuIndex(String dz) {
+
+        Map<String, String> hashMap = new HashMap<>();
+        hashMap.put("子", "贪狼");
+        hashMap.put("丑", "巨门");
+        hashMap.put("寅", "禄存");
+        hashMap.put("卯", "文曲");
+        hashMap.put("辰", "廉贞");
+        hashMap.put("巳", "武曲");
+        hashMap.put("午", "破军");
+        hashMap.put("未", "武曲");
+        hashMap.put("申", "廉贞");
+        hashMap.put("酉", "文曲");
+        hashMap.put("戌", "禄存");
+        hashMap.put("亥", "巨门");
+
         return hashMap.get(dz);
 
     }
+
+    public String getShenZhuIndex(String dz) {
+
+        Map<String, String> hashMap = new HashMap<>();
+        hashMap.put("子", "火星");
+        hashMap.put("丑", "天相");
+        hashMap.put("寅", "天梁");
+        hashMap.put("卯", "天同");
+        hashMap.put("辰", "文昌");
+        hashMap.put("巳", "天机");
+        hashMap.put("午", "火星");
+        hashMap.put("未", "天相");
+        hashMap.put("申", "天梁");
+        hashMap.put("酉", "天同");
+        hashMap.put("戌", "文昌");
+        hashMap.put("亥", "天机");
+
+        return hashMap.get(dz);
+
+    }
+
+    public Map<String, Integer> getDaXianIndex() {
+
+        Map<String, Integer> hashMap = new HashMap<>();
+        hashMap.put("命宫", 0);
+        hashMap.put("兄弟宫", 1);
+        hashMap.put("夫妻宫", 2);
+        hashMap.put("子女宫", 3);
+        hashMap.put("财帛宫", 4);
+        hashMap.put("疾厄宫", 5);
+        hashMap.put("迁移宫", 6);
+        hashMap.put("交友宫", 7);
+        hashMap.put("事业宫", 8);
+        hashMap.put("田宅宫", 9);
+        hashMap.put("福德宫", 10);
+        hashMap.put("父母宫", 11);
+
+        return hashMap;
+
+    }
+
+    public Map<String, Integer> getXiaoXianIndex() {
+
+        Map<String, Integer> hashMap = new HashMap<>();
+        hashMap.put("1,13,25,37,49,61,73,85,97,109", 0);
+        hashMap.put("2,14,26,38,50,62,74,86,98,110", 1);
+        hashMap.put("3,15,27,38,51,63,75,87,99,111", 2);
+        hashMap.put("4,16,28,40,52,64,76,88,100,112",3);
+        hashMap.put("5,17,29,41,53,65,77,89,101,113",4);
+        hashMap.put("6,18,30,42,54,66,78,90,102,114",5);
+        hashMap.put("7,19,31,43,55,67,79,91,103,115",6);
+        hashMap.put("8,20,32,44,56,68,80,92,104,116",7);
+        hashMap.put("9,21,33,45,57,69,81,93,105,117",8);
+        hashMap.put("10,22,34,46,58,70,82,94,106,118",9);
+        hashMap.put("11,23,35,47,59,71,83,95,107,119",10);
+        hashMap.put("12,24,36,48,60,72,84,96,108,120",11);
+
+        return hashMap;
+
+    }
+
+    public Map<String, Integer> getXunKongIndex() {
+
+        Map<String, Integer> hashMap = new HashMap<>();
+        hashMap.put("1,13,25,37,49,61,73,85,97,109", 0);
+        hashMap.put("2,14,26,38,50,62,74,86,98,110", 1);
+        hashMap.put("3,15,27,38,51,63,75,87,99,111", 2);
+        hashMap.put("4,16,28,40,52,64,76,88,100,112",3);
+        hashMap.put("5,17,29,41,53,65,77,89,101,113",4);
+        hashMap.put("6,18,30,42,54,66,78,90,102,114",5);
+        hashMap.put("7,19,31,43,55,67,79,91,103,115",6);
+        hashMap.put("8,20,32,44,56,68,80,92,104,116",7);
+        hashMap.put("9,21,33,45,57,69,81,93,105,117",8);
+        hashMap.put("10,22,34,46,58,70,82,94,106,118",9);
+        hashMap.put("11,23,35,47,59,71,83,95,107,119",10);
+        hashMap.put("12,24,36,48,60,72,84,96,108,120",11);
+
+        return hashMap;
+
+    }
+
+
+
 
 }

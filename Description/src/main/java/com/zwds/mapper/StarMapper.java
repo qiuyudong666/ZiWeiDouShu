@@ -1,11 +1,11 @@
 package com.zwds.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zwds.pojo.Star;
-import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-@Mapper
-public interface StarMapper {
+
+public interface StarMapper extends BaseMapper<Star> {
     public List<Star> selectAllStar();
 }

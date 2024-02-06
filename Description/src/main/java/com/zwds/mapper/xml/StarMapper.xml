@@ -3,7 +3,7 @@
 
 <mapper namespace="com.zwds.mapper.StarMapper">
 
-    <select id="selectAllStar"  resultType="Star">
+    <select id="selectAllStar"  resultType="com.zwds.pojo.Star">
         select * from star
     </select>
 
